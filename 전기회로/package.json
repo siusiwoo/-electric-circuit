@@ -1,0 +1,15 @@
+{
+  "name": "circuit-lab-3d",
+  "version": "1.0.0",
+  "description": "회로 공작소 — 브라우저에서 실행하는 3D 전기회로 퍼즐 게임",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "python -m http.server 8765",
+    "test": "node tools/selftest.mjs",
+    "shot": "node tools/shot.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.2"
+  }
+}

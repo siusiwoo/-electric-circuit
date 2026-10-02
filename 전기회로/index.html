@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회로 공작소 — 3D 전기회로 게임</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./lib/three.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <!-- 상단 바 -->
+    <header id="topbar">
+      <div class="title">
+        <div class="stage">STAGE <span id="stageNo">1</span></div>
+        <h1 id="levelName">레벨</h1>
+        <p id="levelSub">부제</p>
+      </div>
+      <div class="goal">
+        <span class="tag">목표</span>
+        <p id="goalText"></p>
+      </div>
+      <div class="actions">
+        <div id="timer" class="timer">0:00</div>
+        <button id="btnHint" class="btn" title="H">힌트</button>
+        <button id="btnReset" class="btn" title="처음부터">초기화</button>
+        <button id="btnLevels" class="btn">레벨</button>
+        <button id="btnView" class="btn icon" title="V 시점 초기화">⟲</button>
+        <button id="btnTop" class="btn icon" title="T 위에서 보기">▣</button>
+        <button id="btnSound" class="btn icon" title="소리">♪</button>
+      </div>
+    </header>
+
+    <!-- 부품 팔레트 -->
+    <aside id="leftPanel" class="panel">
+      <h2>부품 상자</h2>
+      <div id="palette"></div>
+      <div class="keys">
+        <div><b>클릭</b> 놓기 / 스위치 켜기</div>
+        <div><b>우클릭</b> 치우기</div>
+        <div><b>R</b> 방향 뒤집기 (건전지·LED)</div>
+        <div><b>드래그</b> 시점 회전 · <b>휠</b> 확대</div>
+      </div>
+    </aside>
+
+    <!-- 목표 / 측정 -->
+    <aside id="rightPanel" class="panel">
+      <h2>목표 확인</h2>
+      <ul id="objectives"></ul>
+      <h2>측정기</h2>
+      <div id="meter" class="meter empty">부품을 클릭하면 전압·전류·전력을 보여줍니다.</div>
+    </aside>
+
+    <div id="warning" class="warning hidden"></div>
+    <div id="toast" class="toast"></div>
+
+    <!-- 모달 -->
+    <div id="overlay" class="overlay hidden">
+      <div class="modal" id="modal">
+        <button class="close" id="modalClose">✕</button>
+        <div id="modalBody"></div>
+      </div>
+    </div>
+
+    <!-- file:// 로 열었을 때 안내 -->
+    <div id="fileWarn" class="overlay hidden">
+      <div class="modal">
+        <h2>잠깐! 서버로 열어야 합니다</h2>
+        <p>
+          이 게임은 여러 개의 자바스크립트 모듈로 되어 있어서, 파일을 직접 두 번 눌러 열면
+          브라우저 보안 정책 때문에 화면이 비어 있게 됩니다.
+        </p>
+        <p>
+          게임 폴더에 있는 <b>start.bat</b> 을 두 번 누르세요. 작은 서버가 켜지고 브라우저가
+          자동으로 열립니다.
+        </p>
+        <p class="dim">
+          직접 실행하려면 폴더에서 <code>python -m http.server 8000</code> 을 입력한 뒤
+          <code>http://localhost:8000</code> 에 접속하세요.
+        </p>
+      </div>
+    </div>
+
+    <script>
+      if (location.protocol === 'file:') {
+        document.getElementById('fileWarn').classList.remove('hidden');
+      }
+    </script>
+    <script type="module" src="js/game.js"></script>
+  </body>
+</html>
